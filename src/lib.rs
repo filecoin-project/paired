@@ -14,9 +14,11 @@
 
 extern crate blake2b_simd;
 extern crate byteorder;
-#[macro_use]
 extern crate ff;
 extern crate rand;
+#[cfg(feature = "serde")]
+#[macro_use(Serialize, Deserialize)]
+extern crate serde;
 
 #[cfg(test)]
 pub mod tests;

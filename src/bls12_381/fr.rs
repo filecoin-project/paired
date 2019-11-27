@@ -5,6 +5,38 @@ use ff::{Field, PrimeField, PrimeFieldDecodingError, PrimeFieldRepr};
 #[PrimeFieldGenerator = "7"]
 pub struct Fr(FrRepr);
 
+const LEN_BYTES: usize = std::mem::size_of::<u64>() * 4;
+
+impl Fr {
+    pub fn deserialize(input: &[u8]) -> Result<Self, std::io::Error> {
+        if input.len() < LEN_BYTES {
+            return Err(std::io::Error::new(std::io::ErrorKind::Other, "Truncated"));
+        }
+
+        let mut bytes = [0u8; LEN_BYTES];
+        &mut bytes.copy_from_slice(&input[..LEN_BYTES]);
+
+        let data: [u64; 4] = unsafe { std::mem::transmute(bytes) };
+        
+        Ok(Self(FrRepr(data)))
+    }
+
+    pub fn serialize(&self, output: &mut [u8]) -> Result<usize, std::io::Error> {
+        if output.len() < LEN_BYTES {
+            return Err(std::io::Error::new(std::io::ErrorKind::Other, "Exhausted"));
+        }
+
+        let repr: [u64; 4] = (self.0).0;
+        let ptr = repr.as_ptr() as *const u64 as *const u8;
+        let data = unsafe { std::slice::from_raw_parts(ptr, LEN_BYTES) };
+
+        &mut output[..data.len()].copy_from_slice(&data);
+
+        Ok(LEN_BYTES)
+    }
+}
+
+
 #[cfg(test)]
 use rand_core::SeedableRng;
 #[cfg(test)]

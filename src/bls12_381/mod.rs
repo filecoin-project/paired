@@ -25,7 +25,7 @@ pub use self::fr::{Fr, FrRepr};
 
 use super::{Engine, PairingCurveAffine};
 
-use ff::{BitIterator, Field, ScalarEngine};
+use fff::{BitIterator, Field, ScalarEngine};
 use groupy::CurveAffine;
 
 // The BLS parameter x for BLS12-381 is -0xd201000000010000

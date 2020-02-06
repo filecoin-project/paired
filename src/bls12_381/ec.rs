@@ -835,7 +835,7 @@ pub mod g1 {
     use super::super::{Bls12, Fq, Fq12, FqRepr, Fr, FrRepr};
     use super::g2::G2Affine;
     use crate::{Engine, PairingCurveAffine};
-    use ff::{BitIterator, Field, PrimeField, PrimeFieldRepr, SqrtField};
+    use fff::{BitIterator, Field, PrimeField, PrimeFieldRepr, SqrtField};
     use groupy::{CurveAffine, CurveProjective, EncodedPoint, GroupDecodingError};
     use rand_core::RngCore;
     use std::fmt;
@@ -1534,7 +1534,7 @@ pub mod g2 {
     use super::super::{Bls12, Fq, Fq12, Fq2, FqRepr, Fr, FrRepr};
     use super::g1::G1Affine;
     use crate::{Engine, PairingCurveAffine};
-    use ff::{BitIterator, Field, PrimeField, PrimeFieldRepr, SqrtField};
+    use fff::{BitIterator, Field, PrimeField, PrimeFieldRepr, SqrtField};
     use groupy::{CurveAffine, CurveProjective, EncodedPoint, GroupDecodingError};
     use rand_core::RngCore;
     use std::fmt;

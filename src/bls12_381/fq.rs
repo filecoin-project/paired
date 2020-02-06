@@ -1,5 +1,5 @@
 use super::fq2::Fq2;
-use ff::{BitIterator, Field, PrimeField, PrimeFieldDecodingError, PrimeFieldRepr};
+use fff::{BitIterator, Field, PrimeField, PrimeFieldDecodingError, PrimeFieldRepr};
 
 use blake2b_simd::State as Blake2b;
 use byteorder::{BigEndian, ByteOrder};
@@ -516,7 +516,7 @@ impl Fq {
 }
 
 #[cfg(test)]
-use ff::SqrtField;
+use fff::SqrtField;
 #[cfg(test)]
 use rand_core::RngCore;
 
@@ -2185,7 +2185,7 @@ fn test_fq_pow() {
 
 #[test]
 fn test_fq_sqrt() {
-    use ff::SqrtField;
+    use fff::SqrtField;
 
     let mut rng = XorShiftRng::from_seed([
         0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
@@ -2325,7 +2325,7 @@ fn test_fq_num_bits() {
 
 #[test]
 fn test_fq_root_of_unity() {
-    use ff::SqrtField;
+    use fff::SqrtField;
 
     assert_eq!(Fq::S, 1);
     assert_eq!(
@@ -2373,8 +2373,8 @@ fn fq_repr_tests() {
 
 #[test]
 fn test_fq_legendre() {
-    use ff::LegendreSymbol::*;
-    use ff::SqrtField;
+    use fff::LegendreSymbol::*;
+    use fff::SqrtField;
 
     assert_eq!(QuadraticResidue, Fq::one().legendre());
     assert_eq!(Zero, Fq::zero().legendre());

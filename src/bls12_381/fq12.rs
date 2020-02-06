@@ -1,7 +1,7 @@
 use super::fq::FROBENIUS_COEFF_FQ12_C1;
 use super::fq2::Fq2;
 use super::fq6::Fq6;
-use ff::Field;
+use fff::Field;
 use rand_core::RngCore;
 
 /// An element of Fq12, represented by c0 + c1 * w.
@@ -186,7 +186,7 @@ fn test_fq12_mul_by_014() {
 
 #[test]
 fn fq12_field_tests() {
-    use ff::PrimeField;
+    use fff::PrimeField;
 
     crate::tests::field::random_field_tests::<Fq12>();
     crate::tests::field::random_frobenius_tests::<Fq12, _>(super::fq::Fq::char(), 13);

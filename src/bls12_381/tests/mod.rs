@@ -1,4 +1,4 @@
-use ff::PrimeFieldRepr;
+use fff::PrimeFieldRepr;
 use groupy::{CurveAffine, CurveProjective, EncodedPoint, GroupDecodingError};
 
 use super::*;

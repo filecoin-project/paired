@@ -20,7 +20,7 @@ pub mod tests;
 
 pub mod bls12_381;
 
-use ff::{Field, PrimeField, ScalarEngine, SqrtField};
+use fff::{Field, PrimeField, ScalarEngine, SqrtField};
 use groupy::{CurveAffine, CurveProjective};
 
 #[cfg(feature = "serde")]

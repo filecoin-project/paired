@@ -1,4 +1,4 @@
-use ff::{Field, LegendreSymbol, PrimeField, SqrtField};
+use fff::{Field, LegendreSymbol, PrimeField, SqrtField};
 use rand_core::{RngCore, SeedableRng};
 use rand_xorshift::XorShiftRng;
 

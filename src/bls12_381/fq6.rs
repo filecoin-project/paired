@@ -1,6 +1,6 @@
 use super::fq::{FROBENIUS_COEFF_FQ6_C1, FROBENIUS_COEFF_FQ6_C2};
 use super::fq2::Fq2;
-use ff::Field;
+use fff::Field;
 use rand_core::RngCore;
 
 /// An element of Fq6, represented by c0 + c1 * v + c2 * v^(2).
@@ -377,7 +377,7 @@ fn test_fq6_mul_by_01() {
 
 #[test]
 fn fq6_field_tests() {
-    use ff::PrimeField;
+    use fff::PrimeField;
 
     crate::tests::field::random_field_tests::<Fq6>();
     crate::tests::field::random_frobenius_tests::<Fq6, _>(super::fq::Fq::char(), 13);

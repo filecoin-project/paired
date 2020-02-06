@@ -1,6 +1,6 @@
 use super::fq::{Fq, FROBENIUS_COEFF_FQ2_C1, NEGATIVE_ONE};
 use blake2b_simd::State as Blake2b;
-use ff::{Field, SqrtField};
+use fff::{Field, SqrtField};
 use rand_core::RngCore;
 
 use std::cmp::Ordering;
@@ -191,7 +191,7 @@ impl Field for Fq2 {
 }
 
 impl SqrtField for Fq2 {
-    fn legendre(&self) -> ::ff::LegendreSymbol {
+    fn legendre(&self) -> ::fff::LegendreSymbol {
         self.norm().legendre()
     }
 
@@ -304,7 +304,7 @@ fn test_fq2_basics() {
 #[test]
 fn test_fq2_squaring() {
     use super::fq::FqRepr;
-    use ff::PrimeField;
+    use fff::PrimeField;
 
     let mut a = Fq2 {
         c0: Fq::one(),
@@ -382,7 +382,7 @@ fn test_fq2_squaring() {
 #[test]
 fn test_fq2_mul() {
     use super::fq::FqRepr;
-    use ff::PrimeField;
+    use fff::PrimeField;
 
     let mut a = Fq2 {
         c0: Fq::from_repr(FqRepr([
@@ -452,7 +452,7 @@ fn test_fq2_mul() {
 #[test]
 fn test_fq2_inverse() {
     use super::fq::FqRepr;
-    use ff::PrimeField;
+    use fff::PrimeField;
 
     assert!(Fq2::zero().inverse().is_none());
 
@@ -505,7 +505,7 @@ fn test_fq2_inverse() {
 #[test]
 fn test_fq2_addition() {
     use super::fq::FqRepr;
-    use ff::PrimeField;
+    use fff::PrimeField;
 
     let mut a = Fq2 {
         c0: Fq::from_repr(FqRepr([
@@ -575,7 +575,7 @@ fn test_fq2_addition() {
 #[test]
 fn test_fq2_subtraction() {
     use super::fq::FqRepr;
-    use ff::PrimeField;
+    use fff::PrimeField;
 
     let mut a = Fq2 {
         c0: Fq::from_repr(FqRepr([
@@ -645,7 +645,7 @@ fn test_fq2_subtraction() {
 #[test]
 fn test_fq2_negation() {
     use super::fq::FqRepr;
-    use ff::PrimeField;
+    use fff::PrimeField;
 
     let mut a = Fq2 {
         c0: Fq::from_repr(FqRepr([
@@ -696,7 +696,7 @@ fn test_fq2_negation() {
 #[test]
 fn test_fq2_doubling() {
     use super::fq::FqRepr;
-    use ff::PrimeField;
+    use fff::PrimeField;
 
     let mut a = Fq2 {
         c0: Fq::from_repr(FqRepr([
@@ -747,7 +747,7 @@ fn test_fq2_doubling() {
 #[test]
 fn test_fq2_frobenius_map() {
     use super::fq::FqRepr;
-    use ff::PrimeField;
+    use fff::PrimeField;
 
     let mut a = Fq2 {
         c0: Fq::from_repr(FqRepr([
@@ -870,7 +870,7 @@ fn test_fq2_frobenius_map() {
 #[test]
 fn test_fq2_sqrt() {
     use super::fq::FqRepr;
-    use ff::PrimeField;
+    use fff::PrimeField;
 
     assert_eq!(
         Fq2 {
@@ -949,7 +949,7 @@ fn test_fq2_sqrt() {
 
 #[test]
 fn test_fq2_legendre() {
-    use ff::LegendreSymbol::*;
+    use fff::LegendreSymbol::*;
 
     assert_eq!(Zero, Fq2::zero().legendre());
     // i^2 = -1
@@ -989,7 +989,7 @@ fn test_fq2_mul_nonresidue() {
 
 #[test]
 fn fq2_field_tests() {
-    use ff::PrimeField;
+    use fff::PrimeField;
 
     crate::tests::field::random_field_tests::<Fq2>();
     crate::tests::field::random_sqrt_tests::<Fq2>();
@@ -999,7 +999,7 @@ fn fq2_field_tests() {
 #[test]
 fn test_swenc_consts() {
     use super::FqRepr;
-    use ff::PrimeField;
+    use fff::PrimeField;
 
     // c0 = sqrt(-3)
     let mut c0 = Fq2 {

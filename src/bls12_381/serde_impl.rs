@@ -2,7 +2,7 @@ use std::fmt;
 use std::marker::PhantomData;
 
 use super::{Fq, FqRepr, Fr, FrRepr, G1Affine, G2Affine, G1, G2};
-use ff::PrimeField;
+use fff::PrimeField;
 use groupy::{CurveAffine, CurveProjective, EncodedPoint};
 
 use serde::de::{Error as DeserializeError, SeqAccess, Visitor};
@@ -156,7 +156,7 @@ mod tests {
 
     use std::fmt::Debug;
 
-    use ff::Field;
+    use fff::Field;
     use rand_core::SeedableRng;
     use rand_xorshift::XorShiftRng;
 

@@ -10,10 +10,10 @@ authors = [
 readme = "README.md"
 license = "MIT/Apache-2.0"
 
-description = "Pairing-friendly elliptic curve library"
+description = "Fork of the 'paired: Pairing-friendly elliptic curve library'"
 documentation = "https://docs.rs/paired/"
-homepage = "https://github.com/filecoin-project/paired"
-repository = "https://github.com/filecoin-project/paired"
+homepage = "https://github.com/filecoin-project/pairing"
+repository = "https://github.com/filecoin-project/pairing"
 edition ="2018"
 
 [dependencies]

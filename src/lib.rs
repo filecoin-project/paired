@@ -24,7 +24,7 @@ mod hash_to_field;
 mod signum;
 
 pub use self::hash_to_curve::HashToCurve;
-pub use self::hash_to_field::{BaseFromRO, FromRO, HashToField};
+pub use self::hash_to_field::{hash_to_field, BaseFromRO, FromRO};
 pub use self::signum::{Sgn0Result, Signum0};
 
 use fff::{Field, PrimeField, ScalarEngine, SqrtField};

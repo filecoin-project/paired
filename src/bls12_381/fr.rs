@@ -1,7 +1,7 @@
 use std::io::{Cursor, Read};
 
+use digest::generic_array::{typenum::U48, GenericArray};
 use fff::{Field, PrimeField, PrimeFieldDecodingError, PrimeFieldRepr};
-use sha2ni::digest::generic_array::{typenum::U48, GenericArray};
 
 use crate::BaseFromRO;
 
@@ -11,7 +11,7 @@ use crate::BaseFromRO;
 pub struct Fr(FrRepr);
 
 impl BaseFromRO for Fr {
-    type Length = U48;
+    type BaseLength = U48;
 
     fn from_okm(okm: &GenericArray<u8, U48>) -> Fr {
         const F_2_192: Fr = Fr(FrRepr([

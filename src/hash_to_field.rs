@@ -68,12 +68,9 @@ where
     fn expand_message(msg: &[u8], dst: &[u8], len_in_bytes: usize) -> Vec<u8> {
         HashT::default()
             .chain(msg)
-            .chain([
-                (len_in_bytes >> 8) as u8,
-                len_in_bytes as u8,
-                dst.len() as u8,
-            ])
+            .chain([(len_in_bytes >> 8) as u8, len_in_bytes as u8])
             .chain(dst)
+            .chain([dst.len() as u8])
             .vec_result(len_in_bytes)
     }
 }
@@ -98,13 +95,9 @@ where
         let b_0 = HashT::new()
             .chain(GenericArray::<u8, <HashT as BlockInput>::BlockSize>::default())
             .chain(msg)
-            .chain([
-                (len_in_bytes >> 8) as u8,
-                len_in_bytes as u8,
-                0u8,
-                dst.len() as u8,
-            ])
+            .chain([(len_in_bytes >> 8) as u8, len_in_bytes as u8, 0u8])
             .chain(dst)
+            .chain([dst.len() as u8])
             .result();
 
         let mut b_vals = Vec::<u8>::with_capacity(ell * b_in_bytes);
@@ -112,8 +105,9 @@ where
         b_vals.extend_from_slice(
             HashT::new()
                 .chain(&b_0[..])
-                .chain([1u8, dst.len() as u8])
+                .chain([1u8])
                 .chain(dst)
+                .chain([dst.len() as u8])
                 .result()
                 .as_ref(),
         );
@@ -128,8 +122,9 @@ where
             b_vals.extend_from_slice(
                 HashT::new()
                     .chain(tmp)
-                    .chain([(idx + 1) as u8, dst.len() as u8])
+                    .chain([(idx + 1) as u8])
                     .chain(dst)
+                    .chain([dst.len() as u8])
                     .result()
                     .as_ref(),
             );

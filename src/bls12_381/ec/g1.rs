@@ -1512,135 +1512,6 @@ mod tests {
         assert_eq!(z, &zo);
         check_g1_prime(x, y, z);
 
-        let u = Fq::from_repr(FqRepr([
-            0xdfad7422a0bab889u64,
-            0x4a70b9f85b2c6f5au64,
-            0xc042f72ce88d22f5u64,
-            0x5be4f1d4b77bef62u64,
-            0x99207c0238d7ab04u64,
-            0x6135a609e9aad26u64,
-        ]))
-        .unwrap();
-        let xo = Fq::from_repr(FqRepr([
-            0xc43f22e4c5179aa6u64,
-            0x90750edf071b3149u64,
-            0xddd1fb0b077b1269u64,
-            0xf5cef22203523563u64,
-            0x6c65968a7d59fffcu64,
-            0x9ced6809e9858aeu64,
-        ]))
-        .unwrap();
-        let yo = Fq::from_repr(FqRepr([
-            0xdc8a4684944f05adu64,
-            0x413c96b605fa42c3u64,
-            0x9a8be21d1e63b20eu64,
-            0xa86a30f86322e838u64,
-            0x77ac5472b64d30abu64,
-            0x53119aa51ffec68u64,
-        ]))
-        .unwrap();
-        let zo = Fq::from_repr(FqRepr([
-            0xa36fa20f6ddcdbfdu64,
-            0x517e8ce7336e879au64,
-            0xba98cb9cd4519e1eu64,
-            0x7537ed7e920203a5u64,
-            0xab59f2690f27e4d9u64,
-            0x14fac872814de6e3u64,
-        ]))
-        .unwrap();
-        let p = G1::osswu_map(&u);
-        let G1 { x, y, z } = &p;
-        assert_eq!(x, &xo);
-        assert_eq!(y, &yo);
-        assert_eq!(z, &zo);
-        check_g1_prime(x, y, z);
-
-        let u = Fq::from_repr(FqRepr([
-            0xaf50b546edfc358au64,
-            0x3f1897a2f38a122eu64,
-            0xdad7bf8fa9eb51beu64,
-            0x34c9f03ed6c4ba66u64,
-            0x9ee6db517906e388u64,
-            0x1097781715e5c672u64,
-        ]))
-        .unwrap();
-        let xo = Fq::from_repr(FqRepr([
-            0x8f0c1b27b7d153a1u64,
-            0xef591e984e7736c9u64,
-            0x7eb7353e36c7a10eu64,
-            0xa13c0d70a7f3a5a0u64,
-            0x84e37fc496ea7683u64,
-            0xfe619171ecfcbd6u64,
-        ]))
-        .unwrap();
-        let yo = Fq::from_repr(FqRepr([
-            0xdc73edc70e39fe42u64,
-            0x62ecf6761ff9930fu64,
-            0x18187783faab9a4cu64,
-            0xaf8e80ddfe379c09u64,
-            0xfc8ef86e038520aau64,
-            0xc5fca1550de691du64,
-        ]))
-        .unwrap();
-        let zo = Fq::from_repr(FqRepr([
-            0x5b66b6ee03f15298u64,
-            0x89237edcc40aed57u64,
-            0x37259c742eca1bb1u64,
-            0xe70fee0572e60397u64,
-            0x22fce25b7e2597b9u64,
-            0x18e223a3b11df7a4u64,
-        ]))
-        .unwrap();
-        let p = G1::osswu_map(&u);
-        let G1 { x, y, z } = &p;
-        assert_eq!(x, &xo);
-        assert_eq!(y, &yo);
-        assert_eq!(z, &zo);
-        check_g1_prime(x, y, z);
-
-        let u = Fq::from_repr(FqRepr([
-            0xea84b00658419fc4u64,
-            0xdc23cabb1c5bedd0u64,
-            0x51b2c9560f33a8d5u64,
-            0xdce76c736ec4a3d3u64,
-            0xaed02316b6641449u64,
-            0x17c2c631ba5d8bebu64,
-        ]))
-        .unwrap();
-        let xo = Fq::from_repr(FqRepr([
-            0x4387a325ed54b1d1u64,
-            0x9e27b0edabd4fe91u64,
-            0xca40b0c21fecd54u64,
-            0x7fb2ac0251eee168u64,
-            0x89a3fb041cc9ad83u64,
-            0x163ba2f38efc6de4u64,
-        ]))
-        .unwrap();
-        let yo = Fq::from_repr(FqRepr([
-            0x8e4021829edb5acau64,
-            0x69f8104daa66ea3eu64,
-            0x8e0604fc190b8ad0u64,
-            0x661e41dc536ff246u64,
-            0x1838aaa49432898fu64,
-            0x899f70d9a4252d5u64,
-        ]))
-        .unwrap();
-        let zo = Fq::from_repr(FqRepr([
-            0x2e88745aee5b0da3u64,
-            0x5ce92018233a731fu64,
-            0x2fac5fa03579f6f7u64,
-            0x69c2227c1dbcf7b4u64,
-            0x65aded420fb38ca4u64,
-            0x24327b6cd1e6b84u64,
-        ]))
-        .unwrap();
-        let p = G1::osswu_map(&u);
-        let G1 { x, y, z } = &p;
-        assert_eq!(x, &xo);
-        assert_eq!(y, &yo);
-        assert_eq!(z, &zo);
-        check_g1_prime(x, y, z);
-
         let mut rng = rand_xorshift::XorShiftRng::from_seed([
             0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06,
             0xbc, 0xe5,
@@ -1650,6 +1521,138 @@ mod tests {
             let p = G1::osswu_map(&input);
             let G1 { x, y, z } = &p;
             check_g1_prime(x, y, z);
+        }
+    }
+
+    #[test]
+    fn test_encode_to_curve_07() {
+        use crate::{ExpandMsgXmd, HashToCurve};
+
+        struct TestCase {
+            msg: &'static [u8],
+            expected: [&'static str; 2],
+        }
+        impl TestCase {
+            fn expected(&self) -> String {
+                self.expected[0].to_string() + self.expected[1]
+            }
+        }
+
+        const DOMAIN: &[u8] = b"BLS12381G1_XMD:SHA-256_SSWU_NU_TESTGEN";
+
+        let cases = vec![
+            TestCase {
+                msg: b"",
+                expected: [
+		    "1223effdbb2d38152495a864d78eee14cb0992d89a241707abb03819a91a6d2fd65854ab9a69e9aacb0cbebfd490732c",
+		    "0f925d61e0b235ecd945cbf0309291878df0d06e5d80d6b84aa4ff3e00633b26f9a7cb3523ef737d90e6d71e8b98b2d5",
+                ],
+            },
+            TestCase {
+                msg: b"abc",
+                expected: [
+		    "179d3fd0b4fb1da43aad06cea1fb3f828806ddb1b1fa9424b1e3944dfdbab6e763c42636404017da03099af0dcca0fd6",
+		    "0d037cb1c6d495c0f5f22b061d23f1be3d7fe64d3c6820cfcd99b6b36fa69f7b4c1f4addba2ae7aa46fb25901ab483e4",
+
+                ],
+            },
+            TestCase {
+                msg: b"abcdef0123456789",
+                expected: [
+		    "15aa66c77eded1209db694e8b1ba49daf8b686733afaa7b68c683d0b01788dfb0617a2e2d04c0856db4981921d3004af",
+		    "0952bb2f61739dd1d201dd0a79d74cda3285403d47655ee886afe860593a8a4e51c5b77a22d2133e3a4280eaaaa8b788",
+                ]
+            },
+            TestCase {
+                msg: b"a512_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                expected: [
+		    "06328ce5106e837935e8da84bd9af473422e62492930aa5f460369baad9545defa468d9399854c23a75495d2a80487ee",
+		    "094bfdfe3e552447433b5a00967498a3f1314b86ce7a7164c8a8f4131f99333b30a574607e301d5f774172c627fd0bca",
+                ]
+            }
+        ];
+
+        for case in cases {
+            let g = <G1 as HashToCurve<ExpandMsgXmd<sha2ni::Sha256>>>::encode_to_curve(
+                &case.msg, DOMAIN,
+            );
+            let g_uncompressed = g.into_affine().into_uncompressed();
+
+            assert_eq!(case.expected(), hex::encode(&g_uncompressed.0[..]));
+        }
+    }
+
+    #[test]
+    fn test_hash_to_curve_07() {
+        use crate::{ExpandMsgXmd, HashToCurve};
+
+        struct TestCase {
+            msg: &'static [u8],
+            expected: [&'static str; 2],
+        }
+        impl TestCase {
+            fn expected(&self) -> String {
+                self.expected[0].to_string() + self.expected[1]
+            }
+        }
+
+        const DOMAIN: &[u8] = b"BLS12381G1_XMD:SHA-256_SSWU_RO_TESTGEN";
+
+        let cases = vec![
+            TestCase {
+                msg: b"",
+                expected: [
+                    "0576730ab036cbac1d95b38dca905586f28d0a59048db4e8778782d89bff856ddef89277ead5a21e2975c4a6e3d8c79e",
+                    "1273e568bebf1864393c517f999b87c1eaa1b8432f95aea8160cd981b5b05d8cd4a7cf00103b6ef87f728e4b547dd7ae",
+                ],
+            },
+            TestCase {
+                msg: b"abc",
+                expected: [
+                    "061daf0cc00d8912dac1d4cf5a7c32fca97f8b3bf3f805121888e5eb89f77f9a9f406569027ac6d0e61b1229f42c43d6",
+                    "0de1601e5ba02cb637c1d35266f5700acee9850796dc88e860d022d7b9e7e3dce5950952e97861e5bb16d215c87f030d"
+                ],
+            },
+            TestCase {
+                msg: b"abcdef0123456789",
+                expected: [
+                    "0fb3455436843e76079c7cf3dfef75e5a104dfe257a29a850c145568d500ad31ccfe79be9ae0ea31a722548070cf98cd",
+                    "177989f7e2c751658df1b26943ee829d3ebcf131d8f805571712f3a7527ee5334ecff8a97fc2a50cea86f5e6212e9a57"
+                ]
+            },
+            TestCase {
+                msg: b"a512_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                expected: [
+                    "0514af2137c1ae1d78d5cb97ee606ea142824c199f0f25ac463a0c78200de57640d34686521d3e9cf6b3721834f8a038",
+                    "047a85d6898416a0899e26219bca7c4f0fa682717199de196b02b95eaf9fb55456ac3b810e78571a1b7f5692b7c58ab6"
+                ]
+            }
+        ];
+
+        for case in cases {
+            let g =
+                <G1 as HashToCurve<ExpandMsgXmd<sha2ni::Sha256>>>::hash_to_curve(&case.msg, DOMAIN);
+            let g_uncompressed = g.into_affine().into_uncompressed();
+
+            assert_eq!(case.expected(), hex::encode(&g_uncompressed.0[..]));
         }
     }
 }

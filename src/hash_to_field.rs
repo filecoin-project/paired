@@ -66,6 +66,10 @@ where
     HashT: Default + ExtendableOutput + Input,
 {
     fn expand_message(msg: &[u8], dst: &[u8], len_in_bytes: usize) -> Vec<u8> {
+        assert!(
+            dst.len() < 256,
+            "dst of more than 255bytes is not supported"
+        );
         HashT::default()
             .chain(msg)
             .chain([(len_in_bytes >> 8) as u8, len_in_bytes as u8])
@@ -87,6 +91,10 @@ where
     HashT: Digest + BlockInput,
 {
     fn expand_message(msg: &[u8], dst: &[u8], len_in_bytes: usize) -> Vec<u8> {
+        assert!(
+            dst.len() < 256,
+            "dst of more than 255bytes is not supported"
+        );
         let b_in_bytes = <HashT as Digest>::OutputSize::to_usize();
         let ell = (len_in_bytes + b_in_bytes - 1) / b_in_bytes;
         if ell > 255 {

@@ -1,7 +1,7 @@
 //! Signum trait: sgn0 for field elements
 
 use fff::Field;
-use std::ops::BitXor;
+use std::ops::{BitAnd, BitXor};
 
 /// Result of Sgn0.
 #[derive(Debug, PartialEq, Eq)]
@@ -10,6 +10,31 @@ pub enum Sgn0Result {
     NonNegative,
     /// Neither 0 nor positive
     Negative,
+}
+
+impl From<bool> for Sgn0Result {
+    fn from(val: bool) -> Self {
+        if val {
+            // Negative values = 1
+            Sgn0Result::Negative
+        } else {
+            // Non negative values = 0
+            Sgn0Result::NonNegative
+        }
+    }
+}
+
+impl BitAnd for Sgn0Result {
+    type Output = Self;
+
+    fn bitand(self, rhs: Self) -> Self::Output {
+        if self == rhs && self == Sgn0Result::Negative {
+            // 1 & 1 == 1
+            Sgn0Result::Negative
+        } else {
+            Sgn0Result::NonNegative
+        }
+    }
 }
 
 impl BitXor for Sgn0Result {
@@ -36,23 +61,48 @@ pub trait Signum0: Field {
     }
 }
 
-#[test]
-#[allow(clippy::eq_op)]
-fn test_sgn0result_xor() {
-    assert_eq!(
-        Sgn0Result::Negative ^ Sgn0Result::Negative,
-        Sgn0Result::NonNegative
-    );
-    assert_eq!(
-        Sgn0Result::Negative ^ Sgn0Result::NonNegative,
-        Sgn0Result::Negative
-    );
-    assert_eq!(
-        Sgn0Result::NonNegative ^ Sgn0Result::Negative,
-        Sgn0Result::Negative
-    );
-    assert_eq!(
-        Sgn0Result::NonNegative ^ Sgn0Result::NonNegative,
-        Sgn0Result::NonNegative
-    );
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    #[allow(clippy::eq_op)]
+    fn test_sgn0result_xor() {
+        assert_eq!(
+            Sgn0Result::Negative ^ Sgn0Result::Negative,
+            Sgn0Result::NonNegative
+        );
+        assert_eq!(
+            Sgn0Result::Negative ^ Sgn0Result::NonNegative,
+            Sgn0Result::Negative
+        );
+        assert_eq!(
+            Sgn0Result::NonNegative ^ Sgn0Result::Negative,
+            Sgn0Result::Negative
+        );
+        assert_eq!(
+            Sgn0Result::NonNegative ^ Sgn0Result::NonNegative,
+            Sgn0Result::NonNegative
+        );
+    }
+
+    #[test]
+    #[allow(clippy::eq_op)]
+    fn test_sgn0result_and() {
+        assert_eq!(
+            Sgn0Result::Negative & Sgn0Result::Negative,
+            Sgn0Result::Negative
+        );
+        assert_eq!(
+            Sgn0Result::Negative & Sgn0Result::NonNegative,
+            Sgn0Result::NonNegative
+        );
+        assert_eq!(
+            Sgn0Result::NonNegative & Sgn0Result::Negative,
+            Sgn0Result::NonNegative
+        );
+        assert_eq!(
+            Sgn0Result::NonNegative & Sgn0Result::NonNegative,
+            Sgn0Result::NonNegative
+        );
+    }
 }

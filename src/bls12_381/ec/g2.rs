@@ -1622,453 +1622,6 @@ mod tests {
 
     #[test]
     fn test_osswu_g2() {
-        let c0 =
-            Fq::from_repr(FqRepr([0xb1e40u64, 0x0u64, 0x0u64, 0x0u64, 0x0u64, 0x0u64])).unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0xb9fefffffffbf5ebu64,
-            0x1eabfffeb153ffffu64,
-            0x6730d2a0f6b0f624u64,
-            0x64774b84f38512bfu64,
-            0x4b1ba7b6434bacd7u64,
-            0x1a0111ea397fe69au64,
-        ]))
-        .unwrap();
-        let xo = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0x28d6c99ea4383807u64,
-            0x59cc5836c91ef30fu64,
-            0xa87d216900801408u64,
-            0x2610ff4c3c3f9eb1u64,
-            0x4f4b3ea32be995fcu64,
-            0xdc6721ebe6be37u64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0x60e0254afc5ba93bu64,
-            0x407c6124b57df4cu64,
-            0xf8f3c1f44b0f8c7au64,
-            0xb96a3df0badd28fau64,
-            0x3d04c58bb5e6260u64,
-            0x12b21ca35569a3eeu64,
-        ]))
-        .unwrap();
-        let yo = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([0xf0u64, 0x0u64, 0x0u64, 0x0u64, 0x0u64, 0x0u64])).unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0xb9feffffffffa8cbu64,
-            0x1eabfffeb153ffffu64,
-            0x6730d2a0f6b0f624u64,
-            0x64774b84f38512bfu64,
-            0x4b1ba7b6434bacd7u64,
-            0x1a0111ea397fe69au64,
-        ]))
-        .unwrap();
-        let zo = Fq2 { c0, c1 };
-        let p = G2::osswu_map(&Fq2::zero());
-        let G2 { x, y, z } = &p;
-        assert_eq!(x, &xo);
-        assert_eq!(y, &yo);
-        assert_eq!(z, &zo);
-        check_g2_prime(x, y, z);
-
-        let c0 =
-            Fq::from_repr(FqRepr([0x76980u64, 0x0u64, 0x0u64, 0x0u64, 0x0u64, 0x0u64])).unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0x3b4c00u64,
-            0x0u64,
-            0x0u64,
-            0x0u64,
-            0x0u64,
-            0x0u64,
-        ]))
-        .unwrap();
-        let xo = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0xe24baa0a898b47e0u64,
-            0x92afb1b88e09c84cu64,
-            0xf16d677192b7b78au64,
-            0xab1dd12189c47c0eu64,
-            0xc30f74ce786d38e9u64,
-            0xcc49de633f05c98u64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0x936dda4aedcab1e1u64,
-            0x8261a18f1038bdbu64,
-            0xc08dea79dde085du64,
-            0x9002d76a3ed1ffd2u64,
-            0x185ab763985ff885u64,
-            0xbab7cc25639665u64,
-        ]))
-        .unwrap();
-        let yo = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([0x2d0u64, 0x0u64, 0x0u64, 0x0u64, 0x0u64, 0x0u64])).unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0xb9feffffffffa9bbu64,
-            0x1eabfffeb153ffffu64,
-            0x6730d2a0f6b0f624u64,
-            0x64774b84f38512bfu64,
-            0x4b1ba7b6434bacd7u64,
-            0x1a0111ea397fe69au64,
-        ]))
-        .unwrap();
-        let zo = Fq2 { c0, c1 };
-        let p = G2::osswu_map(&Fq2::one());
-        let G2 { x, y, z } = &p;
-        assert_eq!(x, &xo);
-        assert_eq!(y, &yo);
-        assert_eq!(z, &zo);
-        check_g2_prime(x, y, z);
-
-        let m1 = {
-            let mut tmp = Fq2::one();
-            tmp.negate();
-            tmp
-        };
-        let p = G2::osswu_map(&m1);
-        let myo = {
-            let mut tmp = yo;
-            tmp.negate();
-            tmp
-        };
-        let G2 { x, y, z } = &p;
-        assert_eq!(x, &xo);
-        assert_eq!(y, &myo);
-        assert_eq!(z, &zo);
-        check_g2_prime(x, y, z);
-
-        let c0 = Fq::from_repr(FqRepr([
-            0xd4e2aa3bbf9a8255u64,
-            0xa79f2ece3390978cu64,
-            0x48c1a8fdff541ebau64,
-            0x2b17303f8af1ec82u64,
-            0x86657cd3fc3d08b5u64,
-            0x14f05da1ad4eddc8u64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0x472f6df27fe7c94du64,
-            0xea72d4e6f4f06693u64,
-            0xd1a89c5e84e6d193u64,
-            0xab80a6a3842df525u64,
-            0x46e112ac0a450ea4u64,
-            0x171441a6d04ca8a9u64,
-        ]))
-        .unwrap();
-        let u = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0x19399d7e6e728efau64,
-            0x9223ea49b3a6685bu64,
-            0xb0535eeb3e0be8eeu64,
-            0xccdd7c2ed7a70c2du64,
-            0x192ab8f31b9bb432u64,
-            0xc0b207783a7fe8au64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0xc65c4431a6496c30u64,
-            0x8542454973283f10u64,
-            0xa7808bb40eebf6b9u64,
-            0x683e0aad6e74a5a0u64,
-            0x2076b05de214ef02u64,
-            0xe039ae7c29d2022u64,
-        ]))
-        .unwrap();
-        let xo = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0xcb28446e62179d9eu64,
-            0xa280a992df73998eu64,
-            0x2d5291422919d305u64,
-            0x418c865e205bc0c6u64,
-            0xf8d1e5e8c38550acu64,
-            0xee2df0d5e07448fu64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0xaa7c2684fe2fcc6eu64,
-            0x99a983385cb3106fu64,
-            0x37ad3280cb8a1519u64,
-            0x5a4308b2de7f901du64,
-            0xf2f74d4b44fadc7cu64,
-            0x6ac1c85e32f4edcu64,
-        ]))
-        .unwrap();
-        let yo = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0x9e31b14df8456862u64,
-            0xb09d54057305d0eau64,
-            0x7d4ec28cf63bbd66u64,
-            0x1817c2139c736f55u64,
-            0x7fd9f027c2ed4347u64,
-            0x18d33c46e9efe1f7u64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0x4da85b1219f0aa69u64,
-            0x9eb5f7883c8356b6u64,
-            0x9d27373105a8522fu64,
-            0x5be18ff40be45f19u64,
-            0x9b693bc483f0f59fu64,
-            0x922c5bef1fc118cu64,
-        ]))
-        .unwrap();
-        let zo = Fq2 { c0, c1 };
-        let p = G2::osswu_map(&u);
-        let G2 { x, y, z } = &p;
-        assert_eq!(x, &xo);
-        assert_eq!(y, &yo);
-        assert_eq!(z, &zo);
-        check_g2_prime(x, y, z);
-
-        let c0 = Fq::from_repr(FqRepr([
-            0xdfad7422a0bab889u64,
-            0x4a70b9f85b2c6f5au64,
-            0xc042f72ce88d22f5u64,
-            0x5be4f1d4b77bef62u64,
-            0x99207c0238d7ab04u64,
-            0x6135a609e9aad26u64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0x34f124763e7deb00u64,
-            0xa285e8e52a9cf5f5u64,
-            0x3463f5943127700cu64,
-            0xeea0ef2a7244c951u64,
-            0xeeedf7205412c6a4u64,
-            0x3ac7d4da624f424u64,
-        ]))
-        .unwrap();
-        let u = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0x470a0eb4c6ea41dau64,
-            0x38fc102a7ac96c4bu64,
-            0xf12cc75f43f16fau64,
-            0x1ae7110401d2bf60u64,
-            0xabcdd7ccae9a680au64,
-            0x7a6102bf5d97c9cu64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0x184b0324bbf4ec25u64,
-            0x14e6a614c88543ebu64,
-            0x11b6dadcb855c02eu64,
-            0x45d1bc1a7b21bf38u64,
-            0x6e9811b7292cbe35u64,
-            0x20c43c3e504b49du64,
-        ]))
-        .unwrap();
-        let xo = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0x6c3bf81fbed884beu64,
-            0xc9913eda07951808u64,
-            0x74fe400d891f0d2fu64,
-            0x66459536249908u64,
-            0xc6dd9a1dd87e2749u64,
-            0x15ab62367cef7a16u64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0xf0f9b256ffd9ffd0u64,
-            0xc481edd39780ca8fu64,
-            0x5ea12e0601bcb0adu64,
-            0x92ffe49990fd9032u64,
-            0xacc33c14b83593a7u64,
-            0x5048b4e608e7595u64,
-        ]))
-        .unwrap();
-        let yo = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0x85e0d5489736e2b4u64,
-            0x6c5118e2091d88f0u64,
-            0x8b41f404e6916df1u64,
-            0xda99a9546f39acf9u64,
-            0x57587e3b4ed7340du64,
-            0x170ef6f0827380fcu64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0xdd61a360bf21c990u64,
-            0xe87c9a8fbef8edfeu64,
-            0x674f970b3d82e9b8u64,
-            0xb3f831e1eabbf03bu64,
-            0xcee9367de3ca318u64,
-            0x160a61c5ad6a3ff3u64,
-        ]))
-        .unwrap();
-        let zo = Fq2 { c0, c1 };
-        let p = G2::osswu_map(&u);
-        let G2 { x, y, z } = &p;
-        assert_eq!(x, &xo);
-        assert_eq!(y, &yo);
-        assert_eq!(z, &zo);
-        check_g2_prime(x, y, z);
-
-        let c0 = Fq::from_repr(FqRepr([
-            0xaf50b546edfc358au64,
-            0x3f1897a2f38a122eu64,
-            0xdad7bf8fa9eb51beu64,
-            0x34c9f03ed6c4ba66u64,
-            0x9ee6db517906e388u64,
-            0x1097781715e5c672u64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0x9c0ae60f939506a8u64,
-            0xa4ef9b76946849beu64,
-            0x2d7708869060ff0cu64,
-            0xbd6d915e7952a21du64,
-            0xbfa926b829513c7eu64,
-            0x1732337eace2d016u64,
-        ]))
-        .unwrap();
-        let u = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0x80330decf209c0f9u64,
-            0x9c3c443d2148943cu64,
-            0x7b012833fbb8d302u64,
-            0xc46b5c5bdffaf903u64,
-            0xdc32da48bd881df2u64,
-            0xf7a0d745e96ee8cu64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0x1f77ac75a53cb01du64,
-            0x331ccd087fe7e20u64,
-            0xc798a6624c5c2657u64,
-            0x318fdef5c6a03aaeu64,
-            0x75d649c08a4329b5u64,
-            0xd8461734f2b818du64,
-        ]))
-        .unwrap();
-        let xo = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0x979dcacafe864046u64,
-            0x58d5a8feda1b9c68u64,
-            0x2dc7fe64d491eb67u64,
-            0x1e4eda823cf7dd15u64,
-            0x307aa36319482608u64,
-            0x2251c003acfa5u64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0x71eae2c9a83ace48u64,
-            0x94e7e90db7f89c6eu64,
-            0xeb1f1e2094f14b12u64,
-            0x4c44debec0dd26f4u64,
-            0x78fd720e9efd3821u64,
-            0x145c52e57606ffa5u64,
-        ]))
-        .unwrap();
-        let yo = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0x9b1eaa292b0b8d6cu64,
-            0xf3556f782b80156au64,
-            0x7232a60dfcf45578u64,
-            0xda283bc794f1c552u64,
-            0x72e449993919e49au64,
-            0xdd03753cbb62029u64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0x5e1300be109addd0u64,
-            0xf9a438110153ac6fu64,
-            0x3f16da21234b7dfeu64,
-            0x668a29f291c491ccu64,
-            0xb007536e7f23b656u64,
-            0x1435472d4037af40u64,
-        ]))
-        .unwrap();
-        let zo = Fq2 { c0, c1 };
-        let p = G2::osswu_map(&u);
-        let G2 { x, y, z } = &p;
-        assert_eq!(x, &xo);
-        assert_eq!(y, &yo);
-        assert_eq!(z, &zo);
-        check_g2_prime(x, y, z);
-
-        let c0 = Fq::from_repr(FqRepr([
-            0xea84b00658419fc4u64,
-            0xdc23cabb1c5bedd0u64,
-            0x51b2c9560f33a8d5u64,
-            0xdce76c736ec4a3d3u64,
-            0xaed02316b6641449u64,
-            0x17c2c631ba5d8bebu64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0xb2577499ede5f632u64,
-            0xca3d6ab753b878fu64,
-            0x1833b9b48c4d08cdu64,
-            0x9df66243f1e33375u64,
-            0xeecbfb9b9c09d227u64,
-            0x7a4a6b660e99b12u64,
-        ]))
-        .unwrap();
-        let u = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0x9b719651c4c746e6u64,
-            0xbd438453f89d2adcu64,
-            0x22116768f501742eu64,
-            0x51174b39ab6bc2cu64,
-            0xe1c665b1e5c63de6u64,
-            0x1842adaf28baae5u64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0x6b54949d6f96dbcfu64,
-            0xa915298df9efc27au64,
-            0x3439428ca0b987e5u64,
-            0x61ea03ec041d8965u64,
-            0x86c6f8125dc0bbc2u64,
-            0xddb31de92a06828u64,
-        ]))
-        .unwrap();
-        let xo = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0x4b0f0747efbfaa2bu64,
-            0xf5501541912d865bu64,
-            0x977c499198af07aau64,
-            0xd446b9a7fad8f3b9u64,
-            0x4badb10ce5e47e33u64,
-            0x907aa22e7410129u64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0xdd46de8193ef06f6u64,
-            0x4cce40b2f67a7123u64,
-            0xd843215fe615c9b4u64,
-            0x8d839820983c4b41u64,
-            0x16042cc81ac4edddu64,
-            0x7eff2aeb396734au64,
-        ]))
-        .unwrap();
-        let yo = Fq2 { c0, c1 };
-        let c0 = Fq::from_repr(FqRepr([
-            0x23f96d2a1601cb7u64,
-            0x6a074b0a3175cbfcu64,
-            0x28a4ab30815e16a1u64,
-            0x1030979d8436dd2eu64,
-            0xb43ad04879add9d4u64,
-            0x522b59175626baau64,
-        ]))
-        .unwrap();
-        let c1 = Fq::from_repr(FqRepr([
-            0x6992705ff971d0dau64,
-            0x295c53f6b1faaa69u64,
-            0xe07009934bc1022eu64,
-            0x47e2a110d26f261u64,
-            0x1721f26639694182u64,
-            0x15dba187573a86c3u64,
-        ]))
-        .unwrap();
-        let zo = Fq2 { c0, c1 };
-        let p = G2::osswu_map(&u);
-        let G2 { x, y, z } = &p;
-        assert_eq!(x, &xo);
-        assert_eq!(y, &yo);
-        assert_eq!(z, &zo);
-        check_g2_prime(x, y, z);
-
         let mut rng = rand_xorshift::XorShiftRng::from_seed([
             0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06,
             0xbc, 0xe5,
@@ -2078,6 +1631,159 @@ mod tests {
             let p = G2::osswu_map(&input);
             let G2 { x, y, z } = &p;
             check_g2_prime(x, y, z);
+        }
+    }
+
+    #[test]
+    fn test_encode_to_curve_07() {
+        use crate::{ExpandMsgXmd, HashToCurve};
+
+        struct TestCase {
+            msg: &'static [u8],
+            expected: [&'static str; 4],
+        }
+        impl TestCase {
+            fn expected(&self) -> String {
+                self.expected[0].to_string()
+                    + self.expected[1]
+                    + self.expected[2]
+                    + self.expected[3]
+            }
+        }
+
+        const DOMAIN: &[u8] = b"BLS12381G2_XMD:SHA-256_SSWU_NU_TESTGEN";
+
+        let cases = vec![
+            TestCase {
+                msg: b"",
+                expected: [
+		    "0d4333b77becbf9f9dfa3ca928002233d1ecc854b1447e5a71f751c9042d000f42db91c1d6649a5e0ad22bd7bf7398b8",
+		    "027e4bfada0b47f9f07e04aec463c7371e68f2fd0c738cd517932ea3801a35acf09db018deda57387b0f270f7a219e4d",
+		    "0cc76dc777ea0d447e02a41004f37a0a7b1fafb6746884e8d9fc276716ccf47e4e0899548a2ec71c2bdf1a2a50e876db",
+		    "053674cba9ef516ddc218fedb37324e6c47de27f88ab7ef123b006127d738293c0277187f7e2f80a299a24d84ed03da7",
+                ],
+            },
+            TestCase {
+                msg: b"abc",
+                expected: [
+		    "18f0f87b40af67c056915dbaf48534c592524e82c1c2b50c3734d02c0172c80df780a60b5683759298a3303c5d942778",
+		    "09349f1cb5b2e55489dcd45a38545343451cc30a1681c57acd4fb0a6db125f8352c09f4a67eb7d1d8242cb7d3405f97b",
+		    "10a2ba341bc689ab947b7941ce6ef39be17acaab067bd32bd652b471ab0792c53a2bd03bdac47f96aaafe96e441f63c0",
+		    "02f2d9deb2c7742512f5b8230bf0fd83ea42279d7d39779543c1a43b61c885982b611f6a7a24b514995e8a098496b811",
+                ],
+            },
+            TestCase {
+                msg: b"abcdef0123456789",
+                expected: [
+		    "19808ec5930a53c7cf5912ccce1cc33f1b3dcff24a53ce1cc4cba41fd6996dbed4843ccdd2eaf6a0cd801e562718d163",
+		    "149fe43777d34f0d25430dea463889bd9393bdfb4932946db23671727081c629ebb98a89604f3433fba1c67d356a4af7",
+		    "04783e391c30c83f805ca271e353582fdf19d159f6a4c39b73acbb637a9b8ac820cfbe2738d683368a7c07ad020e3e33",
+		    "04c0d6793a766233b2982087b5f4a254f261003ccb3262ea7c50903eecef3e871d1502c293f9e063d7d293f6384f4551",
+                ]
+            },
+            TestCase {
+                msg: b"a512_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                expected: [
+		    "0b8e0094c886487870372eb6264613a6a087c7eb9804fab789be4e47a57b29eb19b1983a51165a1b5eb025865e9fc63a",
+		    "0804152cbf8474669ad7d1796ab92d7ca21f32d8bed70898a748ed4e4e0ec557069003732fc86866d938538a2ae95552",
+		    "14c80f068ece15a3936bb00c3c883966f75b4e8d9ddde809c11f781ab92d23a2d1d103ad48f6f3bb158bf3e3a4063449",
+		    "09e5c8242dd7281ad32c03fe4af3f19167770016255fb25ad9b67ec51d62fade31a1af101e8f6172ec2ee8857662be3a",
+                ]
+            }
+        ];
+
+        for case in cases {
+            let g = <G2 as HashToCurve<ExpandMsgXmd<sha2ni::Sha256>>>::encode_to_curve(
+                &case.msg, DOMAIN,
+            );
+            let g_uncompressed = g.into_affine().into_uncompressed();
+
+            assert_eq!(case.expected(), hex::encode(&g_uncompressed.0[..]));
+        }
+    }
+
+    #[test]
+    fn test_hash_to_curve_07() {
+        use crate::{ExpandMsgXmd, HashToCurve};
+
+        struct TestCase {
+            msg: &'static [u8],
+            expected: [&'static str; 4],
+        }
+        impl TestCase {
+            fn expected(&self) -> String {
+                self.expected[0].to_string()
+                    + self.expected[1]
+                    + self.expected[2]
+                    + self.expected[3]
+            }
+        }
+
+        const DOMAIN: &[u8] = b"BLS12381G2_XMD:SHA-256_SSWU_RO_TESTGEN";
+
+        let cases = vec![
+            TestCase {
+                msg: b"",
+                expected: [
+		    "0fbdae26f9f9586a46d4b0b70390d09064ef2afe5c99348438a3c7d9756471e015cb534204c1b6824617a85024c772dc",
+		    "0a650bd36ae7455cb3fe5d8bb1310594551456f5c6593aec9ee0c03d2f6cb693bd2c5e99d4e23cbaec767609314f51d3",
+		    "02e5cf8f9b7348428cc9e66b9a9b36fe45ba0b0a146290c3a68d92895b1af0e1f2d9f889fb412670ae8478d8abd4c5aa",
+		    "0d8d49e7737d8f9fc5cef7c4b8817633103faf2613016cb86a1f3fc29968fe2413e232d9208d2d74a89bf7a48ac36f83",
+                ],
+            },
+            TestCase {
+                msg: b"abc",
+                expected: [
+		    "03578447618463deb106b60e609c6f7cc446dc6035f84a72801ba17c94cd800583b493b948eff0033f09086fdd7f6175",
+		    "1953ce6d4267939c7360756d9cca8eb34aac4633ef35369a7dc249445069888e7d1b3f9d2e75fbd468fbcbba7110ea02",
+		    "0184d26779ae9d4670aca9b267dbd4d3b30443ad05b8546d36a195686e1ccc3a59194aea05ed5bce7c3144a29ec047c4",
+		    "0882ab045b8fe4d7d557ebb59a63a35ac9f3d312581b509af0f8eaa2960cbc5e1e36bb969b6e22980b5cbdd0787fcf4e",
+                ],
+            },
+            TestCase {
+                msg: b"abcdef0123456789",
+                expected: [
+		    "195fad48982e186ce3c5c82133aefc9b26d55979b6f530992a8849d4263ec5d57f7a181553c8799bcc83da44847bdc8d",
+		    "17b461fc3b96a30c2408958cbfa5f5927b6063a8ad199d5ebf2d7cdeffa9c20c85487204804fab53f950b2f87db365aa",
+		    "005cdf3d984e3391e7e969276fb4bc02323c5924a4449af167030d855acc2600cf3d4fab025432c6d868c79571a95bef",
+		    "174a3473a3af2d0302b9065e895ca4adba4ece6ce0b41148ba597001abb152f852dd9a96fb45c9de0a43d944746f833e",
+                ]
+            },
+            TestCase {
+                msg: b"a512_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+                       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                expected: [
+		    "123b6bd9feeba26dd4ad00f8bfda2718c9700dc093ea5287d7711844644eb981848316d3f3f57d5d3a652c6cdc816aca",
+		    "0a162306f3b0f2bb326f0c4fb0e1fea020019c3af796dcd1d7264f50ddae94cacf3cade74603834d44b9ab3d5d0a6c98",
+		    "05483f3b96d9252dd4fc0868344dfaf3c9d145e3387db23fa8e449304fab6a7b6ec9c15f05c0a1ea66ff0efcc03e001a",
+		    "15c1d4f1a685bb63ee67ca1fd96155e3d091e852a684b78d085fd34f6091e5249ddddbdcf2e7ec82ce6c04c63647eeb7",
+                ]
+            }
+        ];
+
+        for case in cases {
+            let g =
+                <G2 as HashToCurve<ExpandMsgXmd<sha2ni::Sha256>>>::hash_to_curve(&case.msg, DOMAIN);
+            let g_uncompressed = g.into_affine().into_uncompressed();
+
+            assert_eq!(case.expected(), hex::encode(&g_uncompressed.0[..]));
         }
     }
 }

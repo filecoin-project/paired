@@ -211,7 +211,7 @@ macro_rules! curve_impl {
                     negy.negate();
 
                     $affine {
-                        x: x,
+                        x,
                         y: if (y < negy) ^ greatest { y } else { negy },
                         infinity: false,
                     }
@@ -828,8 +828,8 @@ macro_rules! curve_impl {
                     y.mul_assign(&zinv_powered);
 
                     $affine {
-                        x: x,
-                        y: y,
+                        x,
+                        y,
                         infinity: false,
                     }
                 }

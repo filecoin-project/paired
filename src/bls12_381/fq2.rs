@@ -1137,7 +1137,7 @@ mod tests {
         use crate::bls12_381::fq::FqRepr;
         use crate::hash_to_field::{hash_to_field, ExpandMsgXmd};
         use fff::PrimeField;
-        use sha2ni::Sha256;
+        use sha2::Sha256;
 
         let u = hash_to_field::<Fq2, ExpandMsgXmd<Sha256>>(b"hello world", b"asdfqwerzxcv", 5);
         let c0 = FqRepr([

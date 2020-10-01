@@ -2,7 +2,7 @@
 //! for use with BLS signatures.
 
 use digest::generic_array::{typenum::Unsigned, ArrayLength, GenericArray};
-use digest::{BlockInput, Digest, ExtendableOutput, Input};
+use digest::{BlockInput, Digest, ExtendableOutput, Update};
 use std::marker::PhantomData;
 
 /// Hash to field for they type `T` using ExpandMsg variant `X`.
@@ -63,7 +63,7 @@ pub struct ExpandMsgXof<HashT> {
 /// ExpandMsgXof implements expand_message_xof for the ExpandMsg trait
 impl<HashT> ExpandMsg for ExpandMsgXof<HashT>
 where
-    HashT: Default + ExtendableOutput + Input,
+    HashT: Default + ExtendableOutput + Update,
 {
     fn expand_message(msg: &[u8], dst: &[u8], len_in_bytes: usize) -> Vec<u8> {
         assert!(
@@ -75,7 +75,8 @@ where
             .chain([(len_in_bytes >> 8) as u8, len_in_bytes as u8])
             .chain(dst)
             .chain([dst.len() as u8])
-            .vec_result(len_in_bytes)
+            .finalize_boxed(len_in_bytes)
+            .to_vec()
     }
 }
 
@@ -106,7 +107,7 @@ where
             .chain([(len_in_bytes >> 8) as u8, len_in_bytes as u8, 0u8])
             .chain(dst)
             .chain([dst.len() as u8])
-            .result();
+            .finalize();
 
         let mut b_vals = Vec::<u8>::with_capacity(ell * b_in_bytes);
         // b_1
@@ -116,7 +117,7 @@ where
                 .chain([1u8])
                 .chain(dst)
                 .chain([dst.len() as u8])
-                .result()
+                .finalize()
                 .as_ref(),
         );
 
@@ -133,7 +134,7 @@ where
                     .chain([(idx + 1) as u8])
                     .chain(dst)
                     .chain([dst.len() as u8])
-                    .result()
+                    .finalize()
                     .as_ref(),
             );
         }

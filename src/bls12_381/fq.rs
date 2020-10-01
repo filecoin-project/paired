@@ -2518,7 +2518,7 @@ mod tests {
     #[test]
     fn test_fq_hash_to_field_xmd_sha256() {
         use crate::hash_to_field::{hash_to_field, ExpandMsgXmd};
-        use sha2ni::Sha256;
+        use sha2::Sha256;
 
         let u = hash_to_field::<Fq, ExpandMsgXmd<Sha256>>(b"hello world", b"asdfqwerzxcv", 5);
         let expect = FqRepr([

@@ -1642,9 +1642,8 @@ mod tests {
         ];
 
         for case in cases {
-            let g = <G1 as HashToCurve<ExpandMsgXmd<sha2ni::Sha256>>>::encode_to_curve(
-                &case.msg, DOMAIN,
-            );
+            let g =
+                <G1 as HashToCurve<ExpandMsgXmd<sha2::Sha256>>>::encode_to_curve(&case.msg, DOMAIN);
             let g_uncompressed = g.into_affine().into_uncompressed();
 
             assert_eq!(case.expected(), hex::encode(&g_uncompressed.0[..]));
@@ -1709,7 +1708,7 @@ mod tests {
 
         for case in cases {
             let g =
-                <G1 as HashToCurve<ExpandMsgXmd<sha2ni::Sha256>>>::hash_to_curve(&case.msg, DOMAIN);
+                <G1 as HashToCurve<ExpandMsgXmd<sha2::Sha256>>>::hash_to_curve(&case.msg, DOMAIN);
             let g_uncompressed = g.into_affine().into_uncompressed();
 
             assert_eq!(case.expected(), hex::encode(&g_uncompressed.0[..]));

@@ -2,7 +2,7 @@
 name = "paired"
 
 # Remember to change version string in README.md.
-version = "0.20.1"
+version = "0.21.0"
 authors = [
     "Sean Bowe <ewillbefull@gmail.com>",
     "Jack Grigg <jack@z.cash>",

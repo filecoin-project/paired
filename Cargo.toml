@@ -42,3 +42,6 @@ expose-arith = []
 
 [badges]
 maintenance = { status = "actively-developed" }
+
+[patch.crates-io]
+fff = { git = "https://github.com/filecoin-project/ff", branch = "ser-de" }

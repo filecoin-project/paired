@@ -96,6 +96,8 @@ impl Fq2 {
 }
 
 impl Field for Fq2 {
+    const SERIALIZED_BYTES: usize = 2 * Fq::SERIALIZED_BYTES;
+    
     fn random<R: RngCore>(rng: &mut R) -> Self {
         Fq2 {
             c0: Fq::random(rng),
@@ -193,6 +195,26 @@ impl Field for Fq2 {
 
     fn frobenius_map(&mut self, power: usize) {
         self.c1.mul_assign(&FROBENIUS_COEFF_FQ2_C1[power % 2]);
+    }
+
+    
+    fn as_bytes(&self) -> Vec<u8> {
+        let mut out = Vec::new();
+        out.extend_from_slice(&self.c0.as_bytes());
+        out.extend_from_slice(&self.c1.as_bytes());
+        out
+    }
+    
+    fn from_bytes(bytes: &[u8]) -> Option<Self> {
+        if bytes.len() != Self::SERIALIZED_BYTES {
+            return None;
+        }
+        if let Some(c0) = Fq::from_bytes(&bytes[..Fq::SERIALIZED_BYTES]) {
+            if let Some(c1) = Fq::from_bytes(&bytes[Fq::SERIALIZED_BYTES..]) {
+                return Some(Self { c0, c1 });
+            }
+        }
+        None
     }
 }
 

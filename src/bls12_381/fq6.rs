@@ -101,6 +101,8 @@ impl Fq6 {
 }
 
 impl Field for Fq6 {
+    const SERIALIZED_BYTES: usize = 3 * Fq2::SERIALIZED_BYTES;
+    
     fn random<R: RngCore>(rng: &mut R) -> Self {
         Fq6 {
             c0: Fq2::random(rng),
@@ -297,6 +299,29 @@ impl Field for Fq6 {
             }
             None => None,
         }
+    }
+
+        
+    fn as_bytes(&self) -> Vec<u8> {
+        let mut out = Vec::new();
+        out.extend_from_slice(&self.c0.as_bytes());
+        out.extend_from_slice(&self.c1.as_bytes());
+        out.extend_from_slice(&self.c2.as_bytes());
+        out
+    }
+    
+    fn from_bytes(bytes: &[u8]) -> Option<Self> {
+        if bytes.len() != Self::SERIALIZED_BYTES {
+            return None;
+        }
+        if let Some(c0) = Fq2::from_bytes(&bytes[..Fq2::SERIALIZED_BYTES]) {
+            if let Some(c1) = Fq2::from_bytes(&bytes[Fq2::SERIALIZED_BYTES..2*Fq2::SERIALIZED_BYTES]) {
+                if let Some(c2) = Fq2::from_bytes(&bytes[2*Fq2::SERIALIZED_BYTES..]) {
+                    return Some(Self { c0, c1, c2 });
+                }
+            }
+        }
+        None
     }
 }
 

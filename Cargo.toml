@@ -45,3 +45,5 @@ maintenance = { status = "actively-developed" }
 
 [patch.crates-io]
 fff = { git = "https://github.com/filecoin-project/ff", branch = "ser-de" }
+groupy = { git = "https://github.com/filecoin-project/group", branch = "ser-de" }
+

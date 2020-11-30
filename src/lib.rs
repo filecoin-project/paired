@@ -30,10 +30,6 @@ pub use self::signum::{Sgn0Result, Signum0};
 use fff::{Field, PrimeField, ScalarEngine, SqrtField};
 use groupy::{CurveAffine, CurveProjective};
 
-#[cfg(feature = "serde")]
-#[macro_use]
-extern crate serde;
-
 /// An "engine" is a collection of types (fields, elliptic curve groups, etc.)
 /// with well-defined relationships. In particular, the G1/G2 curve groups are
 /// of prime order `r`, and are equipped with a bilinear pairing function.

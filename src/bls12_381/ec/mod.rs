@@ -363,14 +363,6 @@ macro_rules! curve_impl {
             fn into_projective(&self) -> $projective {
                 (*self).into()
             }
-
-            fn as_bytes(&self) -> Vec<u8> {
-                let mut out = Vec::new();
-                out.extend_from_slice(&self.x.as_bytes());
-                out.extend_from_slice(&self.y.as_bytes());
-                out.push(self.infinity as u8);
-                out
-            }
         }
 
         impl PairingCurveAffine for $affine {
@@ -788,13 +780,6 @@ macro_rules! curve_impl {
                 let mut res = t0.into_projective();
                 res.add_assign_mixed(&t1);
                 res.into_affine().scale_by_cofactor()
-            }
-            fn as_bytes(&self) -> Vec<u8> {
-                let mut out = Vec::new();
-                out.extend_from_slice(&self.x.as_bytes());
-                out.extend_from_slice(&self.y.as_bytes());
-                out.extend_from_slice(&self.z.as_bytes());
-                out
             }
         }
 

@@ -9,9 +9,8 @@ mod fq6;
 mod fr;
 
 mod cofactors;
-
-#[cfg(feature = "serde")]
 mod serde_impl;
+
 #[cfg(test)]
 mod tests;
 

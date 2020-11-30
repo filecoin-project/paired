@@ -5,8 +5,7 @@ use fff::Field;
 use rand_core::RngCore;
 
 /// An element of Fq12, represented by c0 + c1 * w.
-#[derive(Copy, Clone, Debug, Eq, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct Fq12 {
     pub c0: Fq6,
     pub c1: Fq6,
@@ -41,8 +40,6 @@ impl Fq12 {
 }
 
 impl Field for Fq12 {
-    const SERIALIZED_BYTES: usize = 2 * Fq6::SERIALIZED_BYTES;
-
     fn random<R: RngCore>(rng: &mut R) -> Self {
         Fq12 {
             c0: Fq6::random(rng),
@@ -146,25 +143,6 @@ impl Field for Fq12 {
 
             tmp
         })
-    }
-
-    fn as_bytes(&self) -> Vec<u8> {
-        let mut out = Vec::new();
-        out.extend_from_slice(&self.c0.as_bytes());
-        out.extend_from_slice(&self.c1.as_bytes());
-        out
-    }
-    fn from_random_bytes(bytes: &[u8]) -> Option<Self> {
-        todo!()
-    }
-    fn from_bytes(bytes: &[u8]) -> Option<Self> {
-        assert_eq!(bytes.len(), Self::SERIALIZED_BYTES);
-        if let Some(c0) = Fq6::from_bytes(&bytes[..Fq6::SERIALIZED_BYTES]) {
-            if let Some(c1) = Fq6::from_bytes(&bytes[Fq6::SERIALIZED_BYTES..]) {
-                return Some(Self { c0, c1 });
-            }
-        }
-        None
     }
 }
 

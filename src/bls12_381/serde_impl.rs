@@ -1,8 +1,7 @@
 use std::fmt;
 use std::marker::PhantomData;
 
-use super::{Fq, FqRepr, Fr, FrRepr, G1Affine, G2Affine, G1, G2};
-use fff::PrimeField;
+use super::{G1Affine, G2Affine, G1, G2};
 use groupy::{CurveAffine, CurveProjective, EncodedPoint};
 
 use serde::de::{Error as DeserializeError, SeqAccess, Visitor};
@@ -99,64 +98,16 @@ fn deserialize_affine<'de, D: Deserializer<'de>, C: CurveAffine>(d: D) -> Result
     d.deserialize_tuple(len, TupleVisitor { _ph: PhantomData })
 }
 
-impl Serialize for Fr {
-    fn serialize<S: Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
-        self.into_repr().serialize(s)
-    }
-}
-
-impl<'de> Deserialize<'de> for Fr {
-    fn deserialize<D: Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
-        Fr::from_repr(FrRepr::deserialize(d)?).map_err(|_| D::Error::custom(ERR_CODE))
-    }
-}
-
-impl Serialize for FrRepr {
-    fn serialize<S: Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
-        self.0.serialize(s)
-    }
-}
-
-impl<'de> Deserialize<'de> for FrRepr {
-    fn deserialize<D: Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
-        Ok(FrRepr(<_>::deserialize(d)?))
-    }
-}
-
-impl Serialize for Fq {
-    fn serialize<S: Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
-        self.into_repr().serialize(s)
-    }
-}
-
-impl<'de> Deserialize<'de> for Fq {
-    fn deserialize<D: Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
-        Fq::from_repr(FqRepr::deserialize(d)?).map_err(|_| D::Error::custom(ERR_CODE))
-    }
-}
-
-impl Serialize for FqRepr {
-    fn serialize<S: Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
-        self.0.serialize(s)
-    }
-}
-
-impl<'de> Deserialize<'de> for FqRepr {
-    fn deserialize<D: Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
-        Ok(FqRepr(<_>::deserialize(d)?))
-    }
-}
-
 #[cfg(test)]
 mod tests {
     extern crate serde_json;
 
     use super::*;
-    use crate::bls12_381::Fq12;
+    use crate::bls12_381::{Fq, Fq12, Fr};
 
     use std::fmt::Debug;
 
-    use fff::Field;
+    use fff::{Field, PrimeField};
     use rand_core::SeedableRng;
     use rand_xorshift::XorShiftRng;
 

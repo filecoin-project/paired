@@ -1,8 +1,8 @@
 use super::fq::FROBENIUS_COEFF_FQ12_C1;
+use super::fq::{Fq, FqRepr};
 use super::fq2::Fq2;
-use super::fq::{FqRepr,Fq};
 use super::fq6::Fq6;
-use fff::{PrimeField, PrimeFieldRepr, Field};
+use fff::{Field, PrimeField, PrimeFieldRepr};
 use rand_core::RngCore;
 use std::fmt;
 
@@ -55,7 +55,6 @@ impl Fq12 {
 
         Some(Fq12Compressed(b))
     }
-
 
     fn is_cyc(&self) -> bool {
         // Check if a^(p^4 - p^2 + 1) == 1.
@@ -197,8 +196,16 @@ impl Fq12Compressed {
         // Rubin-Silverberg.
         let mut fp6_neg_one = Fq6::one();
         fp6_neg_one.negate();
-        let t = Fq12 {c0: self.0, c1:  fp6_neg_one}.inverse().unwrap();
-        let mut c = Fq12 {c0: self.0, c1: Fq6::one()};
+        let t = Fq12 {
+            c0: self.0,
+            c1: fp6_neg_one,
+        }
+        .inverse()
+        .unwrap();
+        let mut c = Fq12 {
+            c0: self.0,
+            c1: Fq6::one(),
+        };
         c.mul_assign(&t);
 
         if c.is_cyc() {
@@ -213,7 +220,6 @@ impl crate::Compress for Fq12 {
     fn write_compressed<W: std::io::Write>(self, mut out: W) -> std::io::Result<()> {
         let c = self.compress().unwrap();
 
-        
         c.0.c0.c0.into_repr().write_le(&mut out)?;
         c.0.c0.c1.into_repr().write_le(&mut out)?;
 
@@ -244,34 +250,36 @@ impl crate::Compress for Fq12 {
         let z1 = read_fp(&mut source)?;
 
         let x = Fq2 { c0: x0, c1: x1 };
-        let y = Fq2 { c0: y0, c1: y1};
-        let z = Fq2 { c0: z0, c1: z1};
+        let y = Fq2 { c0: y0, c1: y1 };
+        let z = Fq2 { c0: z0, c1: z1 };
 
-        let compressed = Fq12Compressed(Fq6 {c0: x, c1: y, c2: z} );
+        let compressed = Fq12Compressed(Fq6 {
+            c0: x,
+            c1: y,
+            c2: z,
+        });
         compressed.uncompress().ok_or_else(|| {
             std::io::Error::new(std::io::ErrorKind::InvalidData, "invalid compression point")
         })
     }
 }
 
-
-
 #[cfg(test)]
 mod tests {
     use super::*;
-    
-    use rand_core::SeedableRng;
-    use rand_xorshift::XorShiftRng;
-    use crate::bls12_381::{Bls12, G1, G2,Fq,};
+
+    use crate::bls12_381::{Bls12, Fq, G1, G2};
+    use crate::Engine;
     use fff::PrimeField;
     use groupy::CurveProjective;
-    use crate::Engine;
+    use rand_core::SeedableRng;
+    use rand_xorshift::XorShiftRng;
 
     #[test]
     fn test_fq12_mul_by_014() {
         let mut rng = XorShiftRng::from_seed([
-            0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
-            0xe5,
+            0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06,
+            0xbc, 0xe5,
         ]);
 
         for _ in 0..1000 {

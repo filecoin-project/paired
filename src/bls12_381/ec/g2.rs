@@ -140,8 +140,34 @@ impl EncodedPoint for G2Uncompressed {
     }
 }
 
+/**
+ * A struct holding the data of a compressed serialization of a [G2Affine].
+ * Instances of this struct are unchecked and will be checked when converting to [G2Affine].
+ * Use this to encode or decode [G2Affine]s using the compressed encoding.
+ *
+ * # Examples
+ *
+ * Encoding:
+ *
+ * ```
+ * # use paired::bls12_381::{CurveAffine, G2Affine};
+ * # let p = G2Affine::zero();
+ * use paired::bls12_381::{EncodedPoint, G2Compressed};
+ *
+ * let bytes = G2Compressed::from_affine(p).as_ref();
+ * ```
+ *
+ * Decoding:
+ *
+ * ```
+ * # let data: [u8; 96] = [130,245,211,210,222,77,177,157,64,166,152,14,138,163,120,66,160,229,93,29,240,107,214,139,221,200,214,0,2,232,233,89,235,156,250,54,139,60,27,119,209,143,2,165,79,224,71,184,15,9,137,49,95,131,177,42,116,253,134,121,196,241,42,174,134,234,246,171,86,144,179,79,31,221,213,14,227,204,111,108,223,89,233,85,38,213,165,216,42,170,132,250,111,24,30,66];
+ * use paired::bls12_381::{EncodedPoint, G2Compressed};
+ *
+ * let p = G2Compressed(data).into_affine().unwrap();
+ * ```
+ */
 #[derive(Copy, Clone)]
-pub struct G2Compressed([u8; 96]);
+pub struct G2Compressed(pub [u8; 96]);
 
 encoded_point_delegations!(G2Compressed);
 

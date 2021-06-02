@@ -182,8 +182,34 @@ impl EncodedPoint for G1Uncompressed {
     }
 }
 
+/**
+ * A struct holding the data of a compressed serialization of a [G1Affine].
+ * Instances of this struct are unchecked and will be checked when converting to [G1Affine].
+ * Use this to encode or decode [G1Affine]s using the compressed encoding.
+ *
+ * # Examples
+ *
+ * Encoding:
+ *
+ * ```
+ * # use paired::bls12_381::{CurveAffine, G1Affine};
+ * # let p = G1Affine::zero();
+ * use paired::bls12_381::{EncodedPoint, G1Compressed};
+ *
+ * let data = G1Compressed::from_affine(p).as_ref();
+ * ```
+ *
+ * Decoding:
+ *
+ * ```
+ * # let data: [u8; 48] = [134, 143, 0, 94, 184, 230, 228, 202, 10, 71, 200, 167, 124, 234, 165, 48, 154, 71, 151, 138, 124, 113, 188, 92, 206, 150, 54, 107, 93, 122, 86, 153, 55, 197, 41, 238, 218, 102, 199, 41, 55, 132, 169, 64, 40, 1, 175, 49];
+ * use paired::bls12_381::{EncodedPoint, G1Compressed};
+ *
+ * let p = G1Compressed(data).into_affine().unwrap();
+ * ```
+ */
 #[derive(Copy, Clone)]
-pub struct G1Compressed([u8; 48]);
+pub struct G1Compressed(pub [u8; 48]);
 
 encoded_point_delegations!(G1Compressed);
 

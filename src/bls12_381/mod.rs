@@ -14,6 +14,7 @@ mod serde_impl;
 #[cfg(test)]
 mod tests;
 
+pub use self::cofactors::ClearH;
 pub use self::ec::{
     G1Affine, G1Compressed, G1Prepared, G1Uncompressed, G2Affine, G2Compressed, G2Prepared,
     G2Uncompressed, G1, G2,
@@ -23,13 +24,13 @@ pub use self::fq12::Fq12;
 pub use self::fq2::Fq2;
 pub use self::fq6::Fq6;
 pub use self::fr::{Fr, FrRepr};
-
-pub use self::cofactors::ClearH;
+pub use groupy::CurveAffine; // Needed for `impl CurveAffine for G{1,2}Affine`
+pub use groupy::EncodedPoint; // Needed to access `impl EncodedPoint for G1Uncompressed/G1Compressed/G2Uncompressed/G2Compressed`
 
 use super::{Engine, PairingCurveAffine};
 
 use fff::{BitIterator, Field, ScalarEngine};
-use groupy::{CurveAffine, CurveProjective};
+use groupy::CurveProjective;
 
 // The BLS parameter x for BLS12-381 is -0xd201000000010000
 const BLS_X: u64 = 0xd201000000010000;

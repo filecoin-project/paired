@@ -28,7 +28,7 @@ pub use self::hash_to_field::{hash_to_field, BaseFromRO, ExpandMsgXmd, ExpandMsg
 pub use self::signum::{Sgn0Result, Signum0};
 
 use fff::{Field, PrimeField, ScalarEngine, SqrtField};
-use groupy::{CurveAffine, CurveProjective};
+pub use groupy::{CurveAffine, CurveProjective, EncodedPoint, GroupDecodingError};
 
 /// This traits enables reading and writing a compressed version.
 pub trait Compress: Sized {

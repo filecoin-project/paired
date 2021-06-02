@@ -140,6 +140,31 @@ impl EncodedPoint for G2Uncompressed {
     }
 }
 
+/// A struct holding the data of a compressed serialization of a [G2Affine].
+/// Use this to encode or decode [G2Affine]s using the compressed encoding.
+///
+/// # Examples
+///
+/// Encoding:
+///
+/// ```
+/// # use groupy::{CurveAffine, EncodedPoint};
+/// # use paired::bls12_381::{G2Affine};
+/// # let p = G2Affine::zero();
+/// use paired::bls12_381::G2Compressed;
+///
+/// let bytes = G2Compressed::from_affine(p).as_ref();
+/// ```
+///
+/// Decoding:
+///
+/// ```
+/// # use groupy::{EncodedPoint};
+/// use paired::bls12_381::G2Compressed;
+///
+/// let bytes: [u8; 96] = [130,245,211,210,222,77,177,157,64,166,152,14,138,163,120,66,160,229,93,29,240,107,214,139,221,200,214,0,2,232,233,89,235,156,250,54,139,60,27,119,209,143,2,165,79,224,71,184,15,9,137,49,95,131,177,42,116,253,134,121,196,241,42,174,134,234,246,171,86,144,179,79,31,221,213,14,227,204,111,108,223,89,233,85,38,213,165,216,42,170,132,250,111,24,30,66];
+/// let p = G2Compressed::from_bytes_unchecked(bytes).into_affine().unwrap();
+/// ```
 #[derive(Copy, Clone)]
 pub struct G2Compressed([u8; 96]);
 
@@ -148,6 +173,14 @@ encoded_point_delegations!(G2Compressed);
 impl fmt::Debug for G2Compressed {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
         self.0[..].fmt(formatter)
+    }
+}
+
+impl G2Compressed {
+    /// Creates an instance from raw bytes.
+    /// The input is not checked to contain a valid point.
+    pub fn from_bytes_unchecked(original: [u8; 96]) -> Self {
+        Self(original)
     }
 }
 
@@ -926,6 +959,20 @@ impl OsswuMap for G2 {
 mod tests {
     use super::super::util::check_g_prime;
     use super::*;
+
+    #[test]
+    fn g2_compressed_from_bytes_unchecked() {
+        let data: [u8; 96] = [
+            130, 245, 211, 210, 222, 77, 177, 157, 64, 166, 152, 14, 138, 163, 120, 66, 160, 229,
+            93, 29, 240, 107, 214, 139, 221, 200, 214, 0, 2, 232, 233, 89, 235, 156, 250, 54, 139,
+            60, 27, 119, 209, 143, 2, 165, 79, 224, 71, 184, 15, 9, 137, 49, 95, 131, 177, 42, 116,
+            253, 134, 121, 196, 241, 42, 174, 134, 234, 246, 171, 86, 144, 179, 79, 31, 221, 213,
+            14, 227, 204, 111, 108, 223, 89, 233, 85, 38, 213, 165, 216, 42, 170, 132, 250, 111,
+            24, 30, 66,
+        ];
+        let compressed = G2Compressed::from_bytes_unchecked(data);
+        assert_eq!(&compressed.0[..], &data[..]);
+    }
 
     #[test]
     fn g2_generator() {
